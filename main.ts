@@ -19,7 +19,7 @@ let timerON = false
 timerON = false
 basic.showNumber(5)
 let buttonDelay = 5000
-basic.forever(function () {
+loops.everyInterval(200, function () {
     if (timerON) {
         if (input.runningTime() - buttonTime > 1000) {
             basic.showNumber(4)
