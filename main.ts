@@ -1,9 +1,9 @@
 input.onButtonPressed(Button.A, function () {
-    timerON = true
-    buttonTime = input.runningTime()
+    timerRUNNING = true
+    startTime = input.runningTime()
 })
 input.onButtonPressed(Button.B, function () {
-    if (timerON) {
+    if (timerRUNNING) {
         basic.showLeds(`
             . . . . #
             . . . . #
@@ -11,30 +11,21 @@ input.onButtonPressed(Button.B, function () {
             # . # . .
             . # . . .
             `)
-        timerON = false
+        timerRUNNING = false
     }
 })
-let buttonTime = 0
-let timerON = false
-timerON = false
-basic.showNumber(5)
-let buttonDelay = 5000
+let secRemain = 0
+let startTime = 0
+let timerRUNNING = false
+timerRUNNING = false
+let milliSecLEFT = 5000
+basic.showNumber(milliSecLEFT / 1000)
 loops.everyInterval(200, function () {
-    if (timerON) {
-        if (input.runningTime() - buttonTime > 1000) {
-            basic.showNumber(4)
-        }
-        if (input.runningTime() - buttonTime > 2000) {
-            basic.showNumber(3)
-        }
-        if (input.runningTime() - buttonTime > 3000) {
-            basic.showNumber(2)
-        }
-        if (input.runningTime() - buttonTime > 4000) {
-            basic.showNumber(1)
-        }
-        if (input.runningTime() - buttonTime > 5000) {
-            timerON = false
+    if (timerRUNNING) {
+        secRemain = Math.idiv(input.runningTime() - startTime, 1000)
+        basic.showNumber(5 - secRemain)
+        if (input.runningTime() - startTime > 5000) {
+            timerRUNNING = false
             basic.showLeds(`
                 # . . . #
                 . # . # .
